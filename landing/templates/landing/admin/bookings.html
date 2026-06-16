@@ -1,0 +1,209 @@
+{% extends "landing/admin/base_admin.html" %}
+{% block title %}Bookings{% endblock %}
+{% block page_title %}All Bookings{% endblock %}
+{% block content %}
+
+<!-- Filters -->
+<div class="card" style="margin-bottom:1.5rem">
+  <div class="card__body">
+    <form method="GET" style="display:flex;flex-wrap:wrap;gap:.75rem;align-items:flex-end">
+      <div class="form-group" style="flex:1;min-width:180px">
+        <label>Search</label>
+        <input type="text" name="q" value="{{ search }}" placeholder="Name, email or reference…">
+      </div>
+      <div class="form-group" style="min-width:140px">
+        <label>Status</label>
+        <select name="status">
+          <option value="">All statuses</option>
+          {% for val,label in status_choices %}
+            <option value="{{ val }}" {% if status_filter == val %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group" style="min-width:140px">
+        <label>Type</label>
+        <select name="pkg_type">
+          <option value="">All types</option>
+          <option value="froyo"   {% if pkg_type_filter == 'froyo'   %}selected{% endif %}>Frozen Yogurt</option>
+          <option value="taiyaki" {% if pkg_type_filter == 'taiyaki' %}selected{% endif %}>Koi Taiyaki</option>
+        </select>
+      </div>
+      <div class="form-group" style="min-width:140px">
+        <label>Event from</label>
+        <input type="date" name="date_from" value="{{ date_from }}">
+      </div>
+      <div class="form-group" style="min-width:140px">
+        <label>Event to</label>
+        <input type="date" name="date_to" value="{{ date_to }}">
+      </div>
+      <div style="display:flex;gap:.5rem;padding-bottom:2px">
+        <button type="submit" class="btn btn--primary btn--sm">Filter</button>
+        <a href="{% url 'landing:bookings_list' %}" class="btn btn--outline btn--sm">Clear</a>
+        <a href="{% url 'landing:export_csv' %}?status={{ status_filter }}&pkg_type={{ pkg_type_filter }}" class="btn btn--outline btn--sm">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export CSV
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Results count -->
+<div style="font-size:.82rem;color:var(--text-light);margin-bottom:.75rem">
+  {{ total_filtered }} booking{{ total_filtered|pluralize }} found
+  <span style="margin-left:.75rem;font-size:.75rem;color:var(--text-light);font-style:italic">— Click the status badge on any row to change it instantly</span>
+</div>
+
+<!-- Table -->
+<div class="card">
+  <div class="card__body" style="padding:0">
+    {% if bookings %}
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Reference</th>
+            <th>Customer</th>
+            <th>Package</th>
+            <th>Event Date</th>
+            <th>Status</th>
+            <th>Payment</th>
+            <th>Submitted</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for b in bookings %}
+          <tr id="row-{{ b.pk }}">
+            <td>
+              <span style="font-family:monospace;font-size:.82rem;font-weight:600;color:var(--accent)">{{ b.reference }}</span>
+              {% if b.has_duplicate_date %}
+                <span class="badge badge--reviewed" style="margin-left:.4rem" title="Another booking exists on this date">⚠ Duplicate</span>
+              {% endif %}
+            </td>
+            <td>
+              <div style="font-weight:500">{{ b.name }}</div>
+              <div style="font-size:.75rem;color:var(--text-light)">{{ b.email }}</div>
+              {% if b.phone %}<div style="font-size:.75rem;color:var(--text-light)">{{ b.phone }}</div>{% endif %}
+              {% if b.notes %}
+                <div style="font-size:.72rem;color:var(--text-light);margin-top:.2rem;font-style:italic;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="{{ b.notes }}">
+                  📝 {{ b.notes|truncatechars:40 }}
+                </div>
+              {% endif %}
+            </td>
+            <td>
+              <div style="font-size:.84rem;font-weight:500">{{ b.pkg_name }}</div>
+              <div style="font-size:.75rem;color:var(--text-light)">{{ b.pkg_price }} · {{ b.get_pkg_type_display }}</div>
+            </td>
+            <td style="font-size:.84rem">
+              {% if b.event_date %}{{ b.event_date|date:"M d, Y" }}{% else %}<span style="color:var(--text-light)">—</span>{% endif %}
+              {% if b.event_time %}<div style="font-size:.75rem;color:var(--text-light)">🕐 {{ b.event_time|time:"g:i A" }}</div>{% endif %}
+              {% if b.setup_time %}<div style="font-size:.75rem;color:var(--accent)">🔧 Setup: {{ b.setup_time|time:"g:i A" }}</div>{% endif %}
+              {% if b.event_type %}<div style="font-size:.75rem;color:var(--text-light)">{{ b.event_type }}</div>{% endif %}
+              {% if b.venue %}<div style="font-size:.72rem;color:var(--text-light);max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="{{ b.venue }}">📍 {{ b.venue|truncatechars:30 }}</div>{% endif %}
+            </td>
+
+            <!-- ── Payment status ── -->
+            <td>
+              {% if b.payment_received %}
+                <span style="font-size:.75rem;font-weight:600;color:#15803d;display:flex;align-items:center;gap:.3rem">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  Received
+                </span>
+              {% elif b.status == 'reviewed' %}
+                <span style="font-size:.75rem;font-weight:600;color:#92400e;display:flex;align-items:center;gap:.3rem">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  Awaiting
+                </span>
+              {% elif b.status == 'new' %}
+                <span style="font-size:.75rem;color:var(--text-light)">—</span>
+              {% else %}
+                <span style="font-size:.75rem;color:var(--text-light)">—</span>
+              {% endif %}
+            </td>
+
+            <!-- ── Quick status change ── -->
+            <td>
+              <div class="quick-status" style="position:relative">
+                <button class="badge badge--{{ b.status }} quick-status__btn"
+                        data-pk="{{ b.pk }}"
+                        data-current="{{ b.status }}"
+                        title="Click to change status"
+                        style="cursor:pointer;border:none;display:inline-flex;align-items:center;gap:.35rem">
+                  {{ b.get_status_display }}
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="quick-status__dropdown" id="dd-{{ b.pk }}" style="display:none;position:absolute;top:100%;left:0;z-index:200;background:#fff;border:1.5px solid var(--border);border-radius:10px;box-shadow:0 8px 24px rgba(13,59,86,.15);min-width:140px;overflow:hidden;margin-top:4px">
+                  {% for val,label in status_choices %}
+                    {% if val != b.status %}
+                    <button class="quick-status__option"
+                            data-pk="{{ b.pk }}"
+                            data-status="{{ val }}"
+                            style="display:flex;align-items:center;gap:.5rem;width:100%;padding:.6rem .9rem;background:none;border:none;cursor:pointer;font-family:var(--font-body);font-size:.82rem;color:var(--text);text-align:left;transition:background .15s">
+                      <span class="badge badge--{{ val }}" style="pointer-events:none">{{ label }}</span>
+                    </button>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </td>
+
+            <td style="font-size:.78rem;color:var(--text-light)">{{ b.created_at|date:"M d, Y" }}<br>{{ b.created_at|date:"g:i A" }}</td>
+            <td><a href="{% url 'landing:booking_detail' b.pk %}" class="btn btn--primary btn--sm">View →</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+      <div style="padding:3rem;text-align:center;color:var(--text-light)">
+        <div style="font-size:2rem;margin-bottom:.5rem">📋</div>
+        No bookings found matching your filters.
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Hidden CSRF form for quick status updates -->
+<form id="quickStatusForm" method="POST" action="{% url 'landing:quick_status' %}" style="display:none">
+  {% csrf_token %}
+  <input type="hidden" name="pk" id="qsf-pk">
+  <input type="hidden" name="status" id="qsf-status">
+  <input type="hidden" name="next" value="{{ request.get_full_path }}">
+</form>
+
+<script>
+/* Quick status dropdown toggle */
+document.querySelectorAll('.quick-status__btn').forEach(function(btn) {
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    var pk = btn.dataset.pk;
+    var dd = document.getElementById('dd-' + pk);
+    /* Close all other dropdowns */
+    document.querySelectorAll('.quick-status__dropdown').forEach(function(d) {
+      if (d !== dd) d.style.display = 'none';
+    });
+    dd.style.display = dd.style.display === 'none' ? 'block' : 'none';
+  });
+});
+
+/* Quick status option click — submit hidden form */
+document.querySelectorAll('.quick-status__option').forEach(function(opt) {
+  opt.addEventListener('click', function() {
+    document.getElementById('qsf-pk').value     = opt.dataset.pk;
+    document.getElementById('qsf-status').value = opt.dataset.status;
+    document.getElementById('quickStatusForm').submit();
+  });
+  opt.addEventListener('mouseenter', function() { opt.style.background = '#f0f7fb'; });
+  opt.addEventListener('mouseleave', function() { opt.style.background = ''; });
+});
+
+/* Close dropdowns on outside click */
+document.addEventListener('click', function() {
+  document.querySelectorAll('.quick-status__dropdown').forEach(function(d) {
+    d.style.display = 'none';
+  });
+});
+</script>
+
+{% endblock %}

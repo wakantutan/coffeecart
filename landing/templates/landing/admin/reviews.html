@@ -1,0 +1,105 @@
+{% extends "landing/admin/base_admin.html" %}
+{% block title %}Reviews{% endblock %}
+{% block page_title %}Customer Reviews{% endblock %}
+{% block content %}
+
+{% if pending_count %}
+<div class="alert alert--warning" style="margin-bottom:1.5rem">
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+  <strong>{{ pending_count }} review{{ pending_count|pluralize }} waiting for your approval.</strong> Reviews are not visible on the website until approved.
+</div>
+{% endif %}
+
+<!-- Filter tabs -->
+<div style="display:flex;gap:.5rem;margin-bottom:1.25rem;flex-wrap:wrap">
+  <a href="{% url 'landing:reviews_list' %}" class="btn btn--sm {% if not status_filter %}btn--primary{% else %}btn--outline{% endif %}">All</a>
+  <a href="?status=pending"  class="btn btn--sm {% if status_filter == 'pending'  %}btn--primary{% else %}btn--outline{% endif %}">Pending</a>
+  <a href="?status=approved" class="btn btn--sm {% if status_filter == 'approved' %}btn--primary{% else %}btn--outline{% endif %}">Approved</a>
+  <a href="?status=rejected" class="btn btn--sm {% if status_filter == 'rejected' %}btn--primary{% else %}btn--outline{% endif %}">Rejected</a>
+</div>
+
+{% if reviews %}
+  <div style="display:flex;flex-direction:column;gap:1rem">
+    {% for review in reviews %}
+    <div class="card">
+      <div class="card__body">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+
+          <!-- Left: avatar + info -->
+          <div style="display:flex;align-items:flex-start;gap:1rem;flex:1;min-width:0">
+            <!-- Avatar -->
+            <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#eef8fd,#d0eef8);border:1.5px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700;color:var(--accent);flex-shrink:0">
+              {{ review.initials }}
+            </div>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:.3rem">
+                <span style="font-weight:600;font-size:.92rem">{{ review.name }}</span>
+                {% if review.event_type %}
+                  <span style="font-size:.75rem;color:var(--text-light);background:var(--bg);border:1px solid var(--border);padding:.15rem .6rem;border-radius:100px">{{ review.event_type }}</span>
+                {% endif %}
+                <span class="badge badge--{{ review.status }}">{{ review.get_status_display }}</span>
+              </div>
+              <!-- Stars -->
+              <div style="display:flex;gap:2px;margin-bottom:.5rem">
+                {% for i in "12345" %}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="{% if forloop.counter <= review.rating %}#f59e0b{% else %}none{% endif %}" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                {% endfor %}
+                <span style="font-size:.75rem;color:var(--text-light);margin-left:.3rem">{{ review.rating }}/5</span>
+              </div>
+              <!-- Body -->
+              <p style="font-size:.88rem;color:var(--text);line-height:1.65">"{{ review.body }}"</p>
+              <div style="font-size:.75rem;color:var(--text-light);margin-top:.5rem">Submitted {{ review.created_at|date:"M d, Y · g:i A" }}</div>
+            </div>
+          </div>
+
+          <!-- Right: action buttons -->
+          <div style="display:flex;flex-direction:column;gap:.5rem;flex-shrink:0">
+            {% if review.status != 'approved' %}
+            <form method="POST" style="margin:0">
+              {% csrf_token %}
+              <input type="hidden" name="review_id" value="{{ review.pk }}">
+              <input type="hidden" name="action" value="approve">
+              <button type="submit" class="btn btn--primary btn--sm" style="width:100%">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Approve
+              </button>
+            </form>
+            {% endif %}
+            {% if review.status != 'rejected' %}
+            <form method="POST" style="margin:0">
+              {% csrf_token %}
+              <input type="hidden" name="review_id" value="{{ review.pk }}">
+              <input type="hidden" name="action" value="reject">
+              <button type="submit" class="btn btn--outline btn--sm" style="width:100%">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                Reject
+              </button>
+            </form>
+            {% endif %}
+            <form method="POST" style="margin:0" onsubmit="return confirm('Delete this review permanently?')">
+              {% csrf_token %}
+              <input type="hidden" name="review_id" value="{{ review.pk }}">
+              <input type="hidden" name="action" value="delete">
+              <button type="submit" class="btn btn--danger btn--sm" style="width:100%">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+                Delete
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="card">
+    <div class="card__body" style="text-align:center;padding:3rem;color:var(--text-light)">
+      <div style="font-size:2.5rem;margin-bottom:.75rem">⭐</div>
+      <div style="font-size:.95rem;font-weight:500;margin-bottom:.4rem">No reviews yet</div>
+      <div style="font-size:.85rem">Customer reviews will appear here once they submit them from your website.</div>
+    </div>
+  </div>
+{% endif %}
+
+{% endblock %}

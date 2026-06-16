@@ -1,0 +1,70 @@
+{% extends "landing/admin/base_admin.html" %}
+{% load admin_extras %}
+{% block title %}Calendar{% endblock %}
+{% block page_title %}Availability Calendar{% endblock %}
+{% block content %}
+
+<div class="card">
+  <!-- Month navigation -->
+  <div class="card__header">
+    <a href="?year={{ prev_year }}&month={{ prev_month }}" class="btn btn--outline btn--sm">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Prev
+    </a>
+    <span style="font-family:var(--font-display);font-size:1.4rem;font-style:italic;color:var(--dark)">{{ month_name }} {{ year }}</span>
+    <a href="?year={{ next_year }}&month={{ next_month }}" class="btn btn--outline btn--sm">
+      Next
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+  </div>
+
+  <div class="card__body" style="padding:0">
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;min-width:560px">
+        <thead>
+          <tr>
+            {% for day in "Mon,Tue,Wed,Thu,Fri,Sat,Sun"|split:"," %}
+            <th style="padding:.6rem;text-align:center;font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-light);background:var(--bg);border-bottom:1px solid var(--border)">{{ day }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for week in cal %}
+          <tr>
+            {% for day in week %}
+            <td style="border:1px solid var(--border);vertical-align:top;width:14.28%;height:90px;padding:.5rem">
+              {% if day == 0 %}
+                <div style="height:100%"></div>
+              {% else %}
+                <div style="display:flex;flex-direction:column;height:100%">
+                  <div style="font-size:.82rem;font-weight:{% if day == today.day and month == today.month and year == today.year %}700{% else %}400{% endif %};color:{% if day == today.day and month == today.month and year == today.year %}var(--accent){% else %}var(--text){% endif %};margin-bottom:.3rem;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;{% if day == today.day and month == today.month and year == today.year %}background:rgba(41,168,224,.15){% endif %}">{{ day }}</div>
+                  {% with bookings_on_day=day_map|get_item:day %}
+                    {% if bookings_on_day %}
+                      {% for b in bookings_on_day %}
+                      <a href="{% url 'landing:booking_detail' b.pk %}" style="display:block;font-size:.68rem;padding:.18rem .4rem;border-radius:4px;margin-bottom:.18rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:{% if b.status == 'confirmed' %}rgba(34,197,94,.15){% elif b.status == 'new' %}rgba(41,168,224,.15){% elif b.status == 'cancelled' %}rgba(239,68,68,.1){% else %}rgba(245,158,11,.12){% endif %};color:{% if b.status == 'confirmed' %}#15803d{% elif b.status == 'new' %}var(--accent){% elif b.status == 'cancelled' %}#b91c1c{% else %}#b45309{% endif %};font-weight:500">
+                        {{ b.name|truncatechars:12 }}
+                      </a>
+                      {% endfor %}
+                    {% endif %}
+                  {% endwith %}
+                </div>
+              {% endif %}
+            </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Legend -->
+    <div style="display:flex;gap:1rem;padding:1rem 1.25rem;border-top:1px solid var(--border);flex-wrap:wrap">
+      <span style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light)">Legend:</span>
+      <span style="font-size:.75rem;display:flex;align-items:center;gap:.35rem"><span style="width:10px;height:10px;border-radius:2px;background:rgba(41,168,224,.3);display:inline-block"></span>New</span>
+      <span style="font-size:.75rem;display:flex;align-items:center;gap:.35rem"><span style="width:10px;height:10px;border-radius:2px;background:rgba(245,158,11,.25);display:inline-block"></span>Reviewed</span>
+      <span style="font-size:.75rem;display:flex;align-items:center;gap:.35rem"><span style="width:10px;height:10px;border-radius:2px;background:rgba(34,197,94,.3);display:inline-block"></span>Confirmed</span>
+      <span style="font-size:.75rem;display:flex;align-items:center;gap:.35rem"><span style="width:10px;height:10px;border-radius:2px;background:rgba(239,68,68,.2);display:inline-block"></span>Cancelled</span>
+    </div>
+  </div>
+</div>
+{% endblock %}

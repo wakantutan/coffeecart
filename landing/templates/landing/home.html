@@ -1,0 +1,1065 @@
+{% extends "landing/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- ═══════════════════════════════ SECTION 1 — HERO ═══════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero__overlay"></div>
+  <div class="hero__content">
+    <p class="hero__eyebrow" data-aos="fade-up" data-aos-delay="100">Mobile Dessert Cart</p>
+    <h1 class="hero__title" data-aos="fade-up" data-aos-delay="200">{{ business_name }}</h1>
+    <p class="hero__tagline" data-aos="fade-up" data-aos-delay="300">{{ tagline }}</p>
+    <a href="#contact" class="btn btn--primary" data-aos="fade-up" data-aos-delay="400">Book Your Event</a>
+  </div>
+  <a href="#about" class="hero__scroll-hint" aria-label="Scroll to about section">
+    <span class="hero__scroll-arrow"></span>
+  </a>
+</section>
+
+<!-- ═══════════════════════════════ SECTION 2 — ABOUT ══════════════════════════════ -->
+<section class="about section" id="about">
+  <div class="container about__grid">
+    <div class="about__image-wrap" data-aos="fade-right" data-aos-duration="800">
+      <img src="{% static 'landing/images/froyohandgivingicecream.jpg' %}" alt="Froyo Diaries dessert cart" class="about__image" loading="lazy" />
+      <div class="about__image-badge">Est. 2023</div>
+    </div>
+    <div class="about__text" data-aos="fade-left" data-aos-duration="800" data-aos-delay="100">
+      <span class="section-label">Our Story</span>
+      <h2 class="section-title">Froyo Diaries worth gathering for.</h2>
+      <p>{{ about_text }}</p>
+      <ul class="about__pillars">
+        <li><span>—</span> Premium quality ingredients</li>
+        <li><span>—</span> Skilled dessert artisans</li>
+        <li><span>—</span> Zero compromise on taste</li>
+      </ul>
+      <a href="#contact" class="btn btn--outline">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ SECTION 3 — SERVICES ═══════════════════════════ -->
+<section class="services section section--dark" id="services">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-label section-label--light">What We Do</span>
+      <h2 class="section-title section-title--light">Every occasion deserves great Froyo Diaries.</h2>
+    </div>
+    <div class="services__grid">
+      {% for service in services %}
+      <div class="service-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+        <h3 class="service-card__title">{{ service.title }}</h3>
+        <p class="service-card__desc">{{ service.desc }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ SECTION 4 — PACKAGES ═══════════════════════════ -->
+<section class="packages-section section" id="packages">
+  <div class="container">
+
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-label">Our Packages</span>
+      <h2 class="section-title">Every occasion deserves something sweet.</h2>
+      <p class="section-subtitle">Fully staffed. Fully set up. Fully unforgettable.</p>
+    </div>
+
+    <!-- Category Tabs -->
+    <div class="pkg-tabs" data-aos="fade-up" data-aos-delay="100" role="tablist">
+      <button class="pkg-tab pkg-tab--active" data-tab="froyo" role="tab" aria-selected="true" aria-controls="panel-froyo">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="12" cy="10" r="6"/><path d="M12 16v6"/><path d="M9 22h6"/></svg>
+        Frozen Yogurt &amp; Soft Serve
+      </button>
+      <button class="pkg-tab" data-tab="taiyaki" role="tab" aria-selected="false" aria-controls="panel-taiyaki">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Koi Taiyaki
+      </button>
+    </div>
+
+    <!-- ════════════════ FROYO PACKAGES ════════════════ -->
+    <div class="pkg-panel pkg-panel--active" id="panel-froyo" role="tabpanel">
+      <div class="pkg-grid">
+
+        <!-- ── BASIC ── -->
+        <article class="pkg-card" data-aos="fade-up" data-aos-delay="0" data-pkg-type="froyo" data-sauces="3" data-crunches="5" data-fruits="2">
+          <div class="pkg-card__header">
+            <div class="pkg-card__icon-wrap">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="12" cy="10" r="6"/><path d="M12 16v6"/><path d="M9 22h6"/></svg>
+            </div>
+            <div class="pkg-card__title-block">
+              <span class="pkg-card__tier">Basic</span>
+              <span class="pkg-card__price">₱8,499</span>
+            </div>
+          </div>
+          <ul class="pkg-card__highlights">
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>50 cups</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Unlimited toppings</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>4 hours serving time</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2 trained staff</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>3 sauces · 5 crunches · 2 fruits</li>
+          </ul>
+                    <button class="pkg-card__cta btn btn--primary" onclick="openBookingModal(this)">Book This Package</button>
+        </article>
+
+        <!-- ── STANDARD ── -->
+        <article class="pkg-card" data-aos="fade-up" data-aos-delay="80" data-pkg-type="froyo" data-sauces="3" data-crunches="5" data-fruits="2">
+          <div class="pkg-card__header">
+            <div class="pkg-card__icon-wrap">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="12" cy="10" r="6"/><path d="M12 16v6"/><path d="M9 22h6"/></svg>
+            </div>
+            <div class="pkg-card__title-block">
+              <span class="pkg-card__tier">Standard</span>
+              <span class="pkg-card__price">₱14,499</span>
+            </div>
+          </div>
+          <ul class="pkg-card__highlights">
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>100 cups</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Unlimited toppings</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>4 hours serving time</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2 trained staff</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>3 sauces · 5 crunches · 2 fruits</li>
+          </ul>
+                    <button class="pkg-card__cta btn btn--primary" onclick="openBookingModal(this)">Book This Package</button>
+        </article>
+
+        <!-- ── PREMIUM — MOST POPULAR ── -->
+        <article class="pkg-card pkg-card--featured" data-aos="fade-up" data-aos-delay="160" data-pkg-type="froyo" data-sauces="4" data-crunches="8" data-fruits="3">
+          <div class="pkg-card__badge">Most Popular</div>
+          <div class="pkg-card__header">
+            <div class="pkg-card__icon-wrap pkg-card__icon-wrap--featured">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <div class="pkg-card__title-block">
+              <span class="pkg-card__tier">Premium</span>
+              <span class="pkg-card__price">₱17,499</span>
+            </div>
+          </div>
+          <ul class="pkg-card__highlights">
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>150 cups</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Unlimited toppings</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>4 hours serving time</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2 trained staff</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>4 sauces · 8 crunches · 3 fruits</li>
+          </ul>
+                    <button class="pkg-card__cta btn btn--primary" onclick="openBookingModal(this)">Book This Package</button>
+        </article>
+
+        <!-- ── GRANDE ── -->
+        <article class="pkg-card" data-aos="fade-up" data-aos-delay="240" data-pkg-type="froyo" data-sauces="4" data-crunches="8" data-fruits="3">
+          <div class="pkg-card__header">
+            <div class="pkg-card__icon-wrap">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="pkg-card__title-block">
+              <span class="pkg-card__tier">Grande</span>
+              <span class="pkg-card__price">₱19,999</span>
+            </div>
+          </div>
+          <ul class="pkg-card__highlights">
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>200 cups</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Unlimited toppings</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>4 hours serving time</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2 trained staff</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>4 sauces · 8 crunches · 3 fruits</li>
+          </ul>
+                    <button class="pkg-card__cta btn btn--primary" onclick="openBookingModal(this)">Book This Package</button>
+        </article>
+
+      </div>
+    </div><!-- #panel-froyo -->
+
+    <!-- ════════════════ TAIYAKI PACKAGES ════════════════ -->
+    <div class="pkg-panel" id="panel-taiyaki" role="tabpanel">
+      <div class="pkg-grid">
+
+        <!-- Package A -->
+        <article class="pkg-card" data-aos="fade-up" data-aos-delay="0">
+          <div class="pkg-card__header">
+            <div class="pkg-card__icon-wrap">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <div class="pkg-card__title-block">
+              <span class="pkg-card__tier">Package A</span>
+              <span class="pkg-card__price">₱4,999</span>
+            </div>
+          </div>
+          <ul class="pkg-card__highlights">
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>50 pcs Taiyaki</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1 filling</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>3 hours serving time</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2 trained staff</li>
+          </ul>
+          
+          <button class="pkg-card__cta btn btn--primary" onclick="openBookingModal(this)">Book This Package</button>
+        </article>
+
+        <!-- Package B -->
+        <article class="pkg-card" data-aos="fade-up" data-aos-delay="80">
+          <div class="pkg-card__header">
+            <div class="pkg-card__icon-wrap">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <div class="pkg-card__title-block">
+              <span class="pkg-card__tier">Package B</span>
+              <span class="pkg-card__price">₱8,999</span>
+            </div>
+          </div>
+          <ul class="pkg-card__highlights">
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>100 pcs Taiyaki</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Choice of 2 fillings</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>3 hours serving time</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2 trained staff</li>
+          </ul>
+          
+          <button class="pkg-card__cta btn btn--primary" onclick="openBookingModal(this)">Book This Package</button>
+        </article>
+
+        <!-- Package C — Most Popular -->
+        <article class="pkg-card pkg-card--featured" data-aos="fade-up" data-aos-delay="160" data-pkg-type="froyo" data-sauces="4" data-crunches="8" data-fruits="3">
+          <div class="pkg-card__badge">Most Popular</div>
+          <div class="pkg-card__header">
+            <div class="pkg-card__icon-wrap pkg-card__icon-wrap--featured">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <div class="pkg-card__title-block">
+              <span class="pkg-card__tier">Package C</span>
+              <span class="pkg-card__price">₱14,999</span>
+            </div>
+          </div>
+          <ul class="pkg-card__highlights">
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>150 pcs Taiyaki</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Choice of 3 fillings</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>3 hours serving time</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2 trained staff</li>
+          </ul>
+          
+          <button class="pkg-card__cta btn btn--primary" onclick="openBookingModal(this)">Book This Package</button>
+        </article>
+
+        <!-- Package D -->
+        <article class="pkg-card" data-aos="fade-up" data-aos-delay="240">
+          <div class="pkg-card__header">
+            <div class="pkg-card__icon-wrap">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="pkg-card__title-block">
+              <span class="pkg-card__tier">Package D</span>
+              <span class="pkg-card__price">₱18,999</span>
+            </div>
+          </div>
+          <ul class="pkg-card__highlights">
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>200 pcs Taiyaki</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Choice of 4 fillings</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>3 hours serving time</li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2 trained staff</li>
+          </ul>
+          
+          <button class="pkg-card__cta btn btn--primary" onclick="openBookingModal(this)">Book This Package</button>
+        </article>
+
+      </div>
+    </div><!-- #panel-taiyaki -->
+
+    <p class="pkg-note" data-aos="fade-up">
+      * All packages include booth setup, 2 trained staff, and all equipment. For custom or combined packages, reach out via the booking form below.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ SECTION 5 — MENU ══════════════════════════════ -->
+<section class="taiyaki-menu section section--cream" id="menu">
+  <div class="container">
+
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-label">Our Menu</span>
+      <h2 class="section-title">About Koi Taiyaki , Frozen Yogurt and Sundae</h2>
+      <p class="section-subtitle"></p>
+    </div>
+
+    <div class="taiyaki-menu__grid">
+
+      <!-- Fillings -->
+      <div class="taiyaki-col" data-aos="fade-up" data-aos-delay="0">
+        <div class="taiyaki-col__header">
+          <div class="taiyaki-col__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <div>
+            <h3 class="taiyaki-col__title">Premium Fillings</h3>
+            <p class="taiyaki-col__desc">Rich, indulgent fillings made fresh</p>
+          </div>
+        </div>
+        <ul class="taiyaki-list">
+          <li><span class="taiyaki-list__dot"></span>Nutella</li>
+          <li><span class="taiyaki-list__dot"></span>Red Velvet</li>
+          <li><span class="taiyaki-list__dot"></span>Lotus Biscoff</li>
+          <li><span class="taiyaki-list__dot"></span>Matcha</li>
+          <li><span class="taiyaki-list__dot"></span>Ham &amp; Cheese</li>
+          <li><span class="taiyaki-list__dot"></span>Cream Cheese</li>
+          <li><span class="taiyaki-list__dot"></span>Ube Cheese</li>
+          <li><span class="taiyaki-list__dot"></span>Crème Bavarian</li>
+          <li><span class="taiyaki-list__dot"></span>Chocolate</li>
+          <li><span class="taiyaki-list__dot"></span>Bavarian</li>
+        </ul>
+      </div>
+
+      <!-- Sauces — for Froyo & Sundae -->
+      <div class="taiyaki-col" data-aos="fade-up" data-aos-delay="80">
+        <div class="taiyaki-col__header">
+          <div class="taiyaki-col__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <h3 class="taiyaki-col__title">Froyo Sauces</h3>
+            <p class="taiyaki-col__desc">Luscious drizzle options for your cup</p>
+          </div>
+        </div>
+        <ul class="taiyaki-list">
+          <li><span class="taiyaki-list__dot"></span>Nutella</li>
+          <li><span class="taiyaki-list__dot"></span>Biscoff Fudge</li>
+          <li><span class="taiyaki-list__dot"></span>Chocolate Fudge</li>
+          <li><span class="taiyaki-list__dot"></span>Matcha Fudge</li>
+          <li><span class="taiyaki-list__dot"></span>Caramel Fudge</li>
+          <li><span class="taiyaki-list__dot"></span>Strawberry Fudge</li>
+          <li><span class="taiyaki-list__dot"></span>Maple Syrup</li>
+        </ul>
+      </div>
+
+      <!-- Crunches — for Froyo & Sundae -->
+      <div class="taiyaki-col" data-aos="fade-up" data-aos-delay="160">
+        <div class="taiyaki-col__header">
+          <div class="taiyaki-col__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+          </div>
+          <div>
+            <h3 class="taiyaki-col__title">Froyo Crunches</h3>
+            <p class="taiyaki-col__desc">Perfect texture contrast for your cup</p>
+          </div>
+        </div>
+        <ul class="taiyaki-list">
+          <li><span class="taiyaki-list__dot"></span>Sliced Almonds</li>
+          <li><span class="taiyaki-list__dot"></span>Crushed Cashew</li>
+          <li><span class="taiyaki-list__dot"></span>Corn Flakes</li>
+          <li><span class="taiyaki-list__dot"></span>Milo Balls</li>
+          <li><span class="taiyaki-list__dot"></span>Matcha Crackle</li>
+          <li><span class="taiyaki-list__dot"></span>Mini Choco Chips</li>
+          <li><span class="taiyaki-list__dot"></span>Choco Rice</li>
+          <li><span class="taiyaki-list__dot"></span>Fruity Pebbles</li>
+          <li><span class="taiyaki-list__dot"></span>Crushed Graham</li>
+          <li><span class="taiyaki-list__dot"></span>Oreo Crumble</li>
+          <li><span class="taiyaki-list__dot"></span>Mini Marshmallow</li>
+        </ul>
+      </div>
+
+      <!-- Fruits — for Froyo & Sundae -->
+      <div class="taiyaki-col" data-aos="fade-up" data-aos-delay="240">
+        <div class="taiyaki-col__header">
+          <div class="taiyaki-col__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a9 9 0 1 0 9 9"/><path d="M12 2c2.5 2.5 4 5.5 4 9"/><path d="M12 2C9.5 4.5 8 7.5 8 11"/><path d="M21 11h-9"/></svg>
+          </div>
+          <div>
+            <h3 class="taiyaki-col__title">Froyo Fruits</h3>
+            <p class="taiyaki-col__desc">Fresh, vibrant, seasonal toppings</p>
+          </div>
+        </div>
+        <ul class="taiyaki-list">
+          <li><span class="taiyaki-list__dot"></span>Banana</li>
+          <li><span class="taiyaki-list__dot"></span>Mango</li>
+          <li><span class="taiyaki-list__dot"></span>Muscat Grapes</li>
+          <li><span class="taiyaki-list__dot"></span>Strawberry</li>
+          <li><span class="taiyaki-list__dot"></span>Kiwi</li>
+          <li><span class="taiyaki-list__dot"></span>Honey Dew</li>
+        </ul>
+      </div>
+
+    </div><!-- .taiyaki-menu__grid -->
+
+    <div class="taiyaki-cta" data-aos="fade-up">
+      <p>Ready to customize your event? See our <a href="#packages">event packages</a> to pick your sauces, crunches &amp; fruits, or book directly below.</p>
+      <a href="#contact" class="btn btn--primary">Book an Event</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ SECTION 6 — GALLERY ════════════════════════════ -->
+<section class="gallery section" id="gallery">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-label">Gallery</span>
+      <h2 class="section-title">A taste of what we bring.</h2>
+    </div>
+    <div class="gallery__grid">
+      <div class="gallery__item gallery__item--tall" data-aos="fade-up" data-aos-delay="0">
+        <img src="/static/landing/images/peopleeatfroyopeoplehappy.jpg" alt="Frozen yogurt with toppings" loading="lazy" />
+      </div>
+      <div class="gallery__item" data-aos="fade-up" data-aos-delay="50">
+        <img src="/static/landing/images/froyoselection.jpg" alt="Ice cream sundae" loading="lazy" />
+      </div>
+      <div class="gallery__item" data-aos="fade-up" data-aos-delay="100">
+        <img src="/static/landing/images/froyohandgivingicecream.jpg" alt="Japanese taiyaki waffle" loading="lazy" />
+      </div>
+      <div class="gallery__item gallery__item--wide" data-aos="fade-up" data-aos-delay="150">
+        <img src="/static/landing/images/froyocartthesecond.jpg" alt="Froyo dessert display" loading="lazy" />
+      </div>
+      <div class="gallery__item" data-aos="fade-up" data-aos-delay="200">
+        <img src="/static/landing/images/froyocarthwithmalandfemale.jpg" alt="Colorful frozen yogurt" loading="lazy" />
+      </div>
+      <div class="gallery__item" data-aos="fade-up" data-aos-delay="250">
+        <img src="/static/landing/images/froyocardwith2male1female.jpg" alt="Waffle cone ice cream" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ SECTION 6b — REVIEWS ═══════════════════════════ -->
+<section class="reviews section section--cream" id="reviews">
+  <div class="container">
+
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-label">Client Reviews</span>
+      <h2 class="section-title">What our clients say.</h2>
+      {% if avg_rating and review_count %}
+      <div class="reviews__avg">
+        <div class="reviews__stars">
+          {% for i in "12345" %}
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          {% endfor %}
+        </div>
+        <span class="reviews__avg-score">{{ avg_rating }} out of 5</span>
+        <span class="reviews__avg-count">based on {{ review_count }} review{{ review_count|pluralize }}</span>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Reviews carousel -->
+    {% if reviews %}
+    <div class="reviews__carousel" data-aos="fade-up" data-aos-delay="100">
+      <div class="reviews__track" id="reviewsTrack">
+        {% for review in reviews %}
+        <div class="review-card">
+          <div class="review-card__quote">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+          </div>
+          <p class="review-card__body">{{ review.body }}</p>
+          <div class="review-card__stars">
+            {% for i in "12345" %}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="{% if forloop.counter <= review.rating %}#f59e0b{% else %}#e2e8f0{% endif %}" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            {% endfor %}
+          </div>
+          <div class="review-card__footer">
+            <div class="review-card__avatar">{{ review.initials }}</div>
+            <div class="review-card__meta">
+              <span class="review-card__name">{{ review.name }}</span>
+              {% if review.event_type %}<span class="review-card__event">{{ review.event_type }}</span>{% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Navigation arrows -->
+      {% if review_count > 1 %}
+      <div class="reviews__nav">
+        <button class="reviews__arrow" id="reviewsPrev" aria-label="Previous review">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="reviews__dots" id="reviewsDots"></div>
+        <button class="reviews__arrow" id="reviewsNext" aria-label="Next review">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Submit a review -->
+    <div class="reviews__form-wrap" data-aos="fade-up" data-aos-delay="150">
+      <div class="reviews__form-header">
+        <h3>Share your experience</h3>
+        <p>Attended one of our events? We'd love to hear from you!</p>
+      </div>
+
+      <form class="reviews__form" id="reviewForm">
+        {% csrf_token %}
+        <!-- Star picker -->
+        <div class="reviews__star-picker">
+          <label>Your Rating *</label>
+          <div class="star-picker" id="starPicker">
+            {% for i in "12345" %}
+            <button type="button" class="star-picker__star" data-val="{{ forloop.counter }}" aria-label="{{ forloop.counter }} star{% if forloop.counter > 1 %}s{% endif %}">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </button>
+            {% endfor %}
+          </div>
+          <input type="hidden" name="rating" id="ratingInput" value="5">
+        </div>
+
+        <div class="reviews__form-grid">
+          <div class="form-group">
+            <label for="reviewName">Your Name *</label>
+            <input type="text" id="reviewName" name="name" placeholder="Maria Santos" required>
+          </div>
+          <div class="form-group">
+            <label for="reviewEvent">Type of Event</label>
+            <select id="reviewEvent" name="event_type">
+              <option value="">Select event type…</option>
+              <option value="Wedding">Wedding</option>
+              <option value="Birthday Party">Birthday Party</option>
+              <option value="Debut">Debut</option>
+              <option value="Corporate Event">Corporate Event</option>
+              <option value="School Event">School Event</option>
+              <option value="Market / Pop-up">Market / Pop-up</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group reviews__form-full">
+            <label for="reviewBody">Your Review *</label>
+            <textarea id="reviewBody" name="body" rows="3" placeholder="Tell others about your experience…" required></textarea>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem">
+          <p class="reviews__form-note">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            Reviews are verified before publishing.
+          </p>
+          <button type="submit" class="btn btn--primary" id="reviewSubmitBtn">Submit Review</button>
+        </div>
+
+        <!-- Success message -->
+        <div class="reviews__success" id="reviewSuccess" style="display:none">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Thank you for your review! It will appear on our website once verified.
+        </div>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ SECTION 7 — CONTACT ════════════════════════════ -->
+<section class="contact section" id="contact">
+  <div class="container contact__grid">
+    <div class="contact__info" data-aos="fade-right">
+      <span class="section-label">Book Us</span>
+      <h2 class="section-title">Let's make your event special.</h2>
+      <p>Choose your package, customize your toppings, and send us your details — all in one easy booking flow. We'll get back to you within 24 hours.</p>
+      <ul class="contact__details">
+        <li>Banga 1st Plaridel Bulacan, Philippines</li>
+        <li>+63 9184221174</li>
+        <li>hellofroyodiaries@gmail.com</li>
+      </ul>
+    </div>
+    <div class="contact__form-wrap contact__cta-wrap" data-aos="fade-left" data-aos-delay="100">
+      <div class="contact__cta-card">
+        <div class="contact__cta-icon">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="12" cy="10" r="6"/><path d="M12 16v6"/><path d="M9 22h6"/></svg>
+        </div>
+        <h3 class="contact__cta-title">Book Your Sweet Experience</h3>
+        <p class="contact__cta-sub">Pick a package, customize your flavors, and submit — done in under 2 minutes.</p>
+        <div class="contact__cta-steps">
+          <div class="contact__cta-step">
+            <span class="contact__cta-step-num">1</span>
+            <span>Choose your package</span>
+          </div>
+          <div class="contact__cta-step-arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="contact__cta-step">
+            <span class="contact__cta-step-num">2</span>
+            <span>Pick your flavors</span>
+          </div>
+          <div class="contact__cta-step-arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="contact__cta-step">
+            <span class="contact__cta-step-num">3</span>
+            <span>Confirm &amp; submit</span>
+          </div>
+        </div>
+        <button class="btn btn--primary btn--full contact__cta-btn" onclick="openBookingModalFresh()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+          Start Your Booking
+        </button>
+        <p class="contact__cta-note">No payment required — we'll confirm availability and details with you directly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ BOOKING MODAL ══════════════════════════════════ -->
+<div class="bk-overlay" id="bookingOverlay" role="dialog" aria-modal="true" aria-labelledby="bkModalTitle">
+  <div class="bk-modal">
+    {% csrf_token %}
+
+    <!-- Close -->
+    <button class="bk-close" onclick="closeBookingModal()" aria-label="Close booking">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <!-- Progress bar -->
+    <div class="bk-progress">
+      <div class="bk-progress__bar" id="bkProgressBar"></div>
+    </div>
+
+    <!-- Step indicators -->
+    <div class="bk-steps">
+      <div class="bk-step bk-step--active" id="bkStep0Ind">
+        <div class="bk-step__dot">1</div>
+        <span>Package</span>
+      </div>
+      <div class="bk-step__line"></div>
+      <div class="bk-step" id="bkStep1Ind">
+        <div class="bk-step__dot">2</div>
+        <span>Customize</span>
+      </div>
+      <div class="bk-step__line"></div>
+      <div class="bk-step" id="bkStep2Ind">
+        <div class="bk-step__dot">3</div>
+        <span>Your Details</span>
+      </div>
+      <div class="bk-step__line"></div>
+      <div class="bk-step" id="bkStep3Ind">
+        <div class="bk-step__dot">4</div>
+        <span>Confirm</span>
+      </div>
+    </div>
+
+    <!-- ── STEP 0: Pick a Package ── -->
+    <div class="bk-panel" id="bkPanel0">
+      <div class="bk-panel__header">
+        <h2 class="bk-panel__title">What would you like to book?</h2>
+        <p class="bk-panel__sub">Choose a category, then select your preferred package.</p>
+      </div>
+
+      <!-- Category tabs -->
+      <div class="bk-pkg-tabs">
+        <button class="bk-pkg-tab bk-pkg-tab--active" data-category="froyo" onclick="bkSwitchCategory('froyo')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="12" cy="10" r="6"/><path d="M12 16v6"/><path d="M9 22h6"/></svg>
+          Frozen Yogurt &amp; Soft Serve
+        </button>
+        <button class="bk-pkg-tab" data-category="taiyaki" onclick="bkSwitchCategory('taiyaki')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          Koi Taiyaki
+        </button>
+      </div>
+
+      <!-- Froyo package options -->
+      <div class="bk-pkg-options" id="bkFroyoOptions">
+        <button class="bk-pkg-option" onclick="bkSelectPackage(this)" data-pkg-type="froyo" data-pkg-name="Basic" data-pkg-price="₱8,499" data-sauces="3" data-crunches="5" data-fruits="2" data-cups="50 cups" data-time="4 hours serving">
+          <div class="bk-pkg-option__left">
+            <span class="bk-pkg-option__name">Basic</span>
+            <span class="bk-pkg-option__detail">50 cups · 3 sauces · 5 crunches · 2 fruits · 4 hrs</span>
+          </div>
+          <span class="bk-pkg-option__price">₱8,499</span>
+          <div class="bk-pkg-option__check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </button>
+        <button class="bk-pkg-option" onclick="bkSelectPackage(this)" data-pkg-type="froyo" data-pkg-name="Standard" data-pkg-price="₱14,499" data-sauces="3" data-crunches="5" data-fruits="2" data-cups="100 cups" data-time="4 hours serving">
+          <div class="bk-pkg-option__left">
+            <span class="bk-pkg-option__name">Standard</span>
+            <span class="bk-pkg-option__detail">100 cups · 3 sauces · 5 crunches · 2 fruits · 4 hrs</span>
+          </div>
+          <span class="bk-pkg-option__price">₱14,499</span>
+          <div class="bk-pkg-option__check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </button>
+        <button class="bk-pkg-option bk-pkg-option--popular" onclick="bkSelectPackage(this)" data-pkg-type="froyo" data-pkg-name="Premium" data-pkg-price="₱17,499" data-sauces="4" data-crunches="8" data-fruits="3" data-cups="150 cups" data-time="4 hours serving">
+          <div class="bk-pkg-option__badge">Most Popular</div>
+          <div class="bk-pkg-option__left">
+            <span class="bk-pkg-option__name">Premium</span>
+            <span class="bk-pkg-option__detail">150 cups · 4 sauces · 8 crunches · 3 fruits · 4 hrs</span>
+          </div>
+          <span class="bk-pkg-option__price">₱17,499</span>
+          <div class="bk-pkg-option__check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </button>
+        <button class="bk-pkg-option" onclick="bkSelectPackage(this)" data-pkg-type="froyo" data-pkg-name="Grande" data-pkg-price="₱19,999" data-sauces="4" data-crunches="8" data-fruits="3" data-cups="200 cups" data-time="4 hours serving">
+          <div class="bk-pkg-option__left">
+            <span class="bk-pkg-option__name">Grande</span>
+            <span class="bk-pkg-option__detail">200 cups · 4 sauces · 8 crunches · 3 fruits · 4 hrs</span>
+          </div>
+          <span class="bk-pkg-option__price">₱19,999</span>
+          <div class="bk-pkg-option__check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </button>
+      </div>
+
+      <!-- Taiyaki package options -->
+      <div class="bk-pkg-options bk-pkg-options--hidden" id="bkTaiyakiOptions">
+        <button class="bk-pkg-option" onclick="bkSelectPackage(this)" data-pkg-type="taiyaki" data-pkg-name="Package A" data-pkg-price="₱4,999" data-sauces="0" data-crunches="0" data-fruits="0" data-cups="50 pcs" data-time="3 hours serving" data-fillings="1 filling">
+          <div class="bk-pkg-option__left">
+            <span class="bk-pkg-option__name">Package A</span>
+            <span class="bk-pkg-option__detail">50 pcs · 1 filling · 3 hrs · On-site cooking</span>
+          </div>
+          <span class="bk-pkg-option__price">₱4,999</span>
+          <div class="bk-pkg-option__check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </button>
+        <button class="bk-pkg-option" onclick="bkSelectPackage(this)" data-pkg-type="taiyaki" data-pkg-name="Package B" data-pkg-price="₱8,999" data-sauces="0" data-crunches="0" data-fruits="0" data-cups="100 pcs" data-time="3 hours serving" data-fillings="2 fillings">
+          <div class="bk-pkg-option__left">
+            <span class="bk-pkg-option__name">Package B</span>
+            <span class="bk-pkg-option__detail">100 pcs · 2 fillings · 3 hrs · On-site cooking</span>
+          </div>
+          <span class="bk-pkg-option__price">₱8,999</span>
+          <div class="bk-pkg-option__check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </button>
+        <button class="bk-pkg-option bk-pkg-option--popular" onclick="bkSelectPackage(this)" data-pkg-type="taiyaki" data-pkg-name="Package C" data-pkg-price="₱14,999" data-sauces="0" data-crunches="0" data-fruits="0" data-cups="150 pcs" data-time="3 hours serving" data-fillings="3 fillings">
+          <div class="bk-pkg-option__badge">Most Popular</div>
+          <div class="bk-pkg-option__left">
+            <span class="bk-pkg-option__name">Package C</span>
+            <span class="bk-pkg-option__detail">150 pcs · 3 fillings · 3 hrs · On-site cooking</span>
+          </div>
+          <span class="bk-pkg-option__price">₱14,999</span>
+          <div class="bk-pkg-option__check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </button>
+        <button class="bk-pkg-option" onclick="bkSelectPackage(this)" data-pkg-type="taiyaki" data-pkg-name="Package D" data-pkg-price="₱18,999" data-sauces="0" data-crunches="0" data-fruits="0" data-cups="200 pcs" data-time="3 hours serving" data-fillings="4 fillings">
+          <div class="bk-pkg-option__left">
+            <span class="bk-pkg-option__name">Package D</span>
+            <span class="bk-pkg-option__detail">200 pcs · 4 fillings · 3 hrs · On-site cooking</span>
+          </div>
+          <span class="bk-pkg-option__price">₱18,999</span>
+          <div class="bk-pkg-option__check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </button>
+      </div>
+
+      <div class="bk-nav">
+        <span></span>
+        <button class="btn btn--primary bk-next" id="bkNext0" onclick="bkConfirmPackage()" disabled>
+          Next: Customize
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── STEP 1: Customize ── -->
+    <div class="bk-panel" id="bkPanel1">
+      <div class="bk-panel__header">
+        <div class="bk-pkg-badge" id="bkPkgBadge">Basic Package</div>
+        <h2 class="bk-panel__title" id="bkModalTitle">Build your perfect cup</h2>
+        <p class="bk-panel__sub">Pick your flavors — we'll set up everything else.</p>
+        <!-- Package inclusions strip -->
+        <div class="bk-inclusions" id="bkInclusions">
+          <div class="bk-inclusion"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span id="bkIncCups">50 cups</span></div>
+          <div class="bk-inclusion"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Unlimited toppings</span></div>
+          <div class="bk-inclusion"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span id="bkIncTime">4 hours serving</span></div>
+          <div class="bk-inclusion"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Booth setup</span></div>
+          <div class="bk-inclusion"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>2 trained staff</span></div>
+          <div class="bk-inclusion"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span id="bkIncQuota">3 sauces · 5 crunches · 2 fruits</span></div>
+        </div>
+      </div>
+
+      <!-- Sauces -->
+      <div class="bk-picker-section">
+        <div class="bk-picker-header">
+          <div class="bk-picker-step" id="bkSauceStep">1</div>
+          <div class="bk-picker-label">
+            <span class="bk-picker-name">Choose your sauces</span>
+            <span class="bk-picker-quota" id="bkSauceQuota">0 of 3 selected</span>
+          </div>
+        </div>
+        <div class="bk-flavor-grid" id="bkSauceGrid">
+          <button type="button" class="bk-flavor" data-group="sauce" data-val="Nutella">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Nutella</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          </button>
+          <button type="button" class="bk-flavor" data-group="sauce" data-val="Biscoff Fudge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Biscoff Fudge</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          </button>
+          <button type="button" class="bk-flavor" data-group="sauce" data-val="Chocolate Fudge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Chocolate Fudge</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          </button>
+          <button type="button" class="bk-flavor" data-group="sauce" data-val="Matcha Fudge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Matcha Fudge</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          </button>
+          <button type="button" class="bk-flavor" data-group="sauce" data-val="Caramel Fudge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Caramel Fudge</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          </button>
+          <button type="button" class="bk-flavor" data-group="sauce" data-val="Strawberry Fudge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Strawberry Fudge</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          </button>
+          <button type="button" class="bk-flavor" data-group="sauce" data-val="Maple Syrup">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Maple Syrup</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Crunches -->
+      <div class="bk-picker-section">
+        <div class="bk-picker-header">
+          <div class="bk-picker-step" id="bkCrunchStep">2</div>
+          <div class="bk-picker-label">
+            <span class="bk-picker-name">Choose your crunches</span>
+            <span class="bk-picker-quota" id="bkCrunchQuota">0 of 5 selected</span>
+          </div>
+        </div>
+        <div class="bk-flavor-grid" id="bkCrunchGrid">
+          <button type="button" class="bk-flavor" data-group="crunch" data-val="Sliced Almonds"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/></svg><span>Sliced Almonds</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></button>
+          <button type="button" class="bk-flavor" data-group="crunch" data-val="Crushed Cashew"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/></svg><span>Crushed Cashew</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></button>
+          <button type="button" class="bk-flavor" data-group="crunch" data-val="Corn Flakes"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/></svg><span>Corn Flakes</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></button>
+          <button type="button" class="bk-flavor" data-group="crunch" data-val="Milo Balls"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/></svg><span>Milo Balls</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></button>
+          <button type="button" class="bk-flavor" data-group="crunch" data-val="Matcha Crackle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/></svg><span>Matcha Crackle</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></button>
+          <button type="button" class="bk-flavor" data-group="crunch" data-val="Mini Choco Chips"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/></svg><span>Mini Choco Chips</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></button>
+          <button type="button" class="bk-flavor" data-group="crunch" data-val="Choco Rice"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/></svg><span>Choco Rice</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></button>
+          <button type="button" class="bk-flavor" data-group="crunch" data-val="Fruity Pebbles"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/></svg><span>Fruity Pebbles</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></button>
+          <button type="button" class="bk-flavor" data-group="crunch" data-val="Crushed Graham"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/></svg><span>Crushed Graham</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></button>
+          <button type="button" class="bk-flavor" data-group="crunch" data-val="Oreo Crumble"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/></svg><span>Oreo Crumble</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></button>
+          <button type="button" class="bk-flavor" data-group="crunch" data-val="Mini Marshmallow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/></svg><span>Mini Marshmallow</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></button>
+        </div>
+      </div>
+
+      <!-- Fruits -->
+      <div class="bk-picker-section">
+        <div class="bk-picker-header">
+          <div class="bk-picker-step" id="bkFruitStep">3</div>
+          <div class="bk-picker-label">
+            <span class="bk-picker-name">Choose your fruits</span>
+            <span class="bk-picker-quota" id="bkFruitQuota">0 of 2 selected</span>
+          </div>
+        </div>
+        <div class="bk-flavor-grid" id="bkFruitGrid">
+          <button type="button" class="bk-flavor" data-group="fruit" data-val="Banana"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a9 9 0 1 0 9 9"/></svg><span>Banana</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></button>
+          <button type="button" class="bk-flavor" data-group="fruit" data-val="Mango"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a9 9 0 1 0 9 9"/></svg><span>Mango</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></button>
+          <button type="button" class="bk-flavor" data-group="fruit" data-val="Muscat Grapes"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a9 9 0 1 0 9 9"/></svg><span>Muscat Grapes</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></button>
+          <button type="button" class="bk-flavor" data-group="fruit" data-val="Strawberry"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a9 9 0 1 0 9 9"/></svg><span>Strawberry</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></button>
+          <button type="button" class="bk-flavor" data-group="fruit" data-val="Kiwi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a9 9 0 1 0 9 9"/></svg><span>Kiwi</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></button>
+          <button type="button" class="bk-flavor" data-group="fruit" data-val="Honey Dew"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a9 9 0 1 0 9 9"/></svg><span>Honey Dew</span><div class="bk-flavor__check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></button>
+        </div>
+      </div>
+
+      <div class="bk-nav">
+        <span></span>
+        <button class="btn btn--primary bk-next" id="bkNext1" onclick="bkGoTo(2)">
+          Next: Your Details
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── STEP 2: Your Details ── -->
+    <div class="bk-panel bk-panel--hidden" id="bkPanel2">
+      <div class="bk-panel__header">
+        <div class="bk-pkg-badge" id="bkPkgBadge2"></div>
+        <h2 class="bk-panel__title">Tell us about your event</h2>
+        <p class="bk-panel__sub">We'll get back to you within 24 hours to confirm.</p>
+        <div class="bk-inclusions bk-inclusions--taiyaki" id="bkTaiyakiInclusions" style="display:none">
+          <div class="bk-inclusion"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span id="bkTaiyakiPcs">50 pcs Taiyaki</span></div>
+          <div class="bk-inclusion"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span id="bkTaiyakiFill">1 filling</span></div>
+          <div class="bk-inclusion"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>3 hours serving</span></div>
+          <div class="bk-inclusion"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>On-site cooking · Booth setup</span></div>
+          <div class="bk-inclusion"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>2 trained staff</span></div>
+        </div>
+      </div>
+      <div class="bk-form">
+        <div class="bk-form-row">
+          <div class="bk-form-group">
+            <label for="bkName">Your Name *</label>
+            <input type="text" id="bkName" placeholder="Maria Santos" autocomplete="name" />
+          </div>
+          <div class="bk-form-group">
+            <label for="bkEmail">Email Address *</label>
+            <input type="email" id="bkEmail" placeholder="maria@example.com" autocomplete="email" />
+          </div>
+        </div>
+        <div class="bk-form-row">
+          <div class="bk-form-group">
+            <label for="bkPhone">Phone Number</label>
+            <input type="tel" id="bkPhone" placeholder="+63 900 000 0000" autocomplete="tel" />
+          </div>
+        </div>
+        <div class="bk-form-row">
+          <div class="bk-form-group">
+            <label for="bkDate">Preferred Event Date</label>
+            <input type="date" id="bkDate" />
+            <div class="bk-date-error" id="bkDateError" style="display:none;font-size:.75rem;color:#ef4444;margin-top:.3rem;display:none;align-items:center;gap:.35rem">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span id="bkDateErrorMsg">This date is unavailable.</span>
+            </div>
+          </div>
+          <div class="bk-form-group">
+            <label for="bkEventType">Type of Event</label>
+            <select id="bkEventType">
+              <option value="" disabled selected>Select event type…</option>
+              <option value="Wedding">Wedding</option>
+              <option value="Corporate Event">Corporate Event</option>
+              <option value="Birthday Party">Birthday Party</option>
+              <option value="Debut">Debut</option>
+              <option value="School Event">School Event</option>
+              <option value="Market / Pop-up">Market / Pop-up</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="bk-form-row">
+          <div class="bk-form-group">
+            <label for="bkEventTime">
+              Event Start Time *
+              <span style="font-weight:400;text-transform:none;font-size:.7rem;margin-left:.3rem">— What time does your event start?</span>
+            </label>
+            <input type="time" id="bkEventTime" required />
+          </div>
+          <div class="bk-form-group">
+            <label for="bkSetupTime">
+              Setup / Onsite Time *
+              <span style="font-weight:400;text-transform:none;font-size:.7rem;margin-left:.3rem">— What time should we arrive?</span>
+            </label>
+            <input type="time" id="bkSetupTime" required />
+          </div>
+        </div>
+        <div class="bk-form-group bk-form-group--full">
+          <label>
+            Event Venue / Address *
+            <span style="font-weight:400;text-transform:none;font-size:.7rem;margin-left:.3rem">— Type to search, then pin your exact location on the map</span>
+          </label>
+
+          <!-- Search box -->
+          <div class="venue-input-wrap" style="margin-bottom:.6rem">
+            <svg class="venue-input-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="bkVenueSearch" placeholder="Search address, landmark, or place…" autocomplete="off" />
+            <div class="venue-spinner" id="bkVenueSpinner" style="display:none">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="spin"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+            </div>
+          </div>
+          <div class="venue-dropdown" id="bkVenueDropdown" style="position:relative;top:0;margin-bottom:.6rem;display:none"></div>
+
+          <!-- Map -->
+          <div class="venue-map-wrap">
+            <div id="bkVenueMap"></div>
+            <div class="venue-map-hint" id="bkMapHint">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Click the map or drag the pin to set your exact location
+            </div>
+          </div>
+
+          <!-- Selected address display -->
+          <div class="venue-selected" id="bkVenueSelected" style="display:none">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span id="bkVenueSelectedText">—</span>
+            <button type="button" class="venue-clear-btn" id="bkVenueClear" title="Clear and search again">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+
+          <!-- Hidden fields saved to DB -->
+          <input type="hidden" id="bkVenue"     name="venue">
+          <input type="hidden" id="bkVenueLat"  name="venue_lat">
+          <input type="hidden" id="bkVenueLng"  name="venue_lng">
+          <input type="hidden" id="bkVenueFull" name="venue_full">
+        </div>
+
+        <div class="bk-form-group bk-form-group--full">
+          <label for="bkNotes">Additional Notes</label>
+          <textarea id="bkNotes" rows="3" placeholder="Number of guests, special requests, parking info…"></textarea>
+        </div>
+      </div>
+      <div class="bk-nav">
+        <button class="btn btn--outline bk-back" onclick="bkGoTo(1)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Back
+        </button>
+        <button class="btn btn--primary bk-next" onclick="bkGoTo(3)">
+          Review Order
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── STEP 3: Confirm ── -->
+    <div class="bk-panel bk-panel--hidden" id="bkPanel3">
+      <div class="bk-panel__header">
+        <h2 class="bk-panel__title">Review your booking</h2>
+        <p class="bk-panel__sub">Everything look good? Hit confirm and we'll be in touch.</p>
+      </div>
+      <div class="bk-summary">
+        <div class="bk-summary__row">
+          <span class="bk-summary__label">Package</span>
+          <span class="bk-summary__val" id="bkSumPkg">—</span>
+        </div>
+        <div class="bk-summary__row">
+          <span class="bk-summary__label">Price</span>
+          <span class="bk-summary__val bk-summary__val--price" id="bkSumPrice">—</span>
+        </div>
+        <div class="bk-summary__divider"></div>
+        <div class="bk-summary__row bk-summary__row--wrap">
+          <span class="bk-summary__label">Sauces</span>
+          <div class="bk-summary__chips" id="bkSumSauces"></div>
+        </div>
+        <div class="bk-summary__row bk-summary__row--wrap">
+          <span class="bk-summary__label">Crunches</span>
+          <div class="bk-summary__chips" id="bkSumCrunches"></div>
+        </div>
+        <div class="bk-summary__row bk-summary__row--wrap">
+          <span class="bk-summary__label">Fruits</span>
+          <div class="bk-summary__chips" id="bkSumFruits"></div>
+        </div>
+        <div class="bk-summary__divider"></div>
+        <div class="bk-summary__row">
+          <span class="bk-summary__label">Name</span>
+          <span class="bk-summary__val" id="bkSumName">—</span>
+        </div>
+        <div class="bk-summary__row">
+          <span class="bk-summary__label">Email</span>
+          <span class="bk-summary__val" id="bkSumEmail">—</span>
+        </div>
+        <div class="bk-summary__row" id="bkSumPhoneRow">
+          <span class="bk-summary__label">Phone</span>
+          <span class="bk-summary__val" id="bkSumPhone">—</span>
+        </div>
+        <div class="bk-summary__row" id="bkSumVenueRow">
+          <span class="bk-summary__label">Venue</span>
+          <span class="bk-summary__val" id="bkSumVenue" style="text-align:right;font-size:.82rem">—</span>
+        </div>
+        <div class="bk-summary__row" id="bkSumEventRow">
+          <span class="bk-summary__label">Event</span>
+          <span class="bk-summary__val" id="bkSumEvent">—</span>
+        </div>
+        <div class="bk-summary__row" id="bkSumDateRow">
+          <span class="bk-summary__label">Date</span>
+          <span class="bk-summary__val" id="bkSumDate">—</span>
+        </div>
+        <div class="bk-summary__row" id="bkSumEventTimeRow">
+          <span class="bk-summary__label">Event Time</span>
+          <span class="bk-summary__val" id="bkSumEventTime">—</span>
+        </div>
+        <div class="bk-summary__row" id="bkSumSetupTimeRow">
+          <span class="bk-summary__label">Setup Time</span>
+          <span class="bk-summary__val" id="bkSumSetupTime">—</span>
+        </div>
+        <div class="bk-summary__row bk-summary__row--wrap" id="bkSumNotesRow">
+          <span class="bk-summary__label">Notes</span>
+          <span class="bk-summary__val" id="bkSumNotes">—</span>
+        </div>
+      </div>
+      <div class="bk-nav">
+        <button class="btn btn--outline bk-back" onclick="bkGoTo(2)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Edit Details
+        </button>
+        <button class="btn btn--primary" id="bkConfirmBtn" onclick="bkSubmit()">
+          Confirm Booking
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── SUCCESS ── -->
+    <div class="bk-panel bk-panel--hidden bk-success" id="bkPanelSuccess">
+      <div class="bk-success__icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <h2>Booking Request Sent!</h2>
+      <p>Thank you! We've received your booking request for the <strong id="bkSuccessPkg"></strong>. We'll reach out to <strong id="bkSuccessEmail"></strong> within 24 hours to confirm.</p>
+      <div id="bkSuccessRef" style="display:none;font-family:monospace;font-size:0.9rem;font-weight:700;color:var(--color-accent);background:rgba(41,168,224,0.1);border:1px solid rgba(41,168,224,0.25);border-radius:8px;padding:0.5rem 1.25rem;letter-spacing:0.05em"></div>
+      <p style="font-size:0.8rem;color:var(--color-text-light)">Keep your reference number handy for any follow-up.</p>
+      <button class="btn btn--primary" onclick="closeBookingModal()">Close</button>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

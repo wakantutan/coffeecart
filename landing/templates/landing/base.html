@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{% block meta_description %}Specialty mobile coffee cart for weddings, corporate events, and private parties.{% endblock %}" />
+  <title>{% block title %}{{ business_name }} — Froyo Diaries Cart{% endblock %}</title>
+
+   <!-- FAVICON -->
+  <link rel="icon" type="image/x-icon" href="{% static 'landing/images/favicon.ico' %}" />
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'landing/images/favicon-16x16.png' %}" />
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'landing/images/favicon-32x32.png' %}" />
+  <link rel="icon" type="image/png" sizes="48x48" href="{% static 'landing/images/favicon-48x48.png' %}" />
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'landing/images/apple-touch-icon.png' %}" />
+  
+  <!-- ═══════════════════════════════════════════
+       GOOGLE FONTS
+       Cormorant Garamond  → elegant display / headings
+       DM Sans             → clean, modern body text
+  ════════════════════════════════════════════════ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- ═══════════════════════════════════════════
+       AOS — Animate On Scroll
+  ════════════════════════════════════════════════ -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+
+  <!-- ═══════════════════════════════════════════
+       OUR CUSTOM CSS
+  ════════════════════════════════════════════════ -->
+  <!-- Leaflet Maps (for venue pin picker in booking modal) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <link rel="stylesheet" href="{% static 'landing/css/style.css' %}" />
+
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       STICKY NAVIGATION BAR
+  ════════════════════════════════════════════════ -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+    <a class="navbar__logo" href="#hero">{{ business_name }}</a>
+
+    <!-- Hamburger toggle for mobile -->
+    <button class="navbar__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="navbar__links" id="navLinks">
+      {% for label, anchor in nav_links %}
+        <li><a href="{{ anchor }}">{{ label }}</a></li>
+      {% endfor %}
+      <li><a href="#contact" class="navbar__cta" onclick="event.preventDefault(); openBookingModalFresh()">Book Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       DJANGO FLASH MESSAGES
+  ════════════════════════════════════════════════ -->
+  {% if messages %}
+    <div class="flash-messages" role="alert">
+      {% for message in messages %}
+        <div class="flash flash--{{ message.tags }}">
+          {{ message }}
+          <button class="flash__close" onclick="this.parentElement.remove()" aria-label="Dismiss">×</button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <!-- ═══════════════════════════════════════════
+       PAGE CONTENT
+  ════════════════════════════════════════════════ -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <p class="footer__logo">{{ business_name }}</p>
+    <p class="footer__copy">&copy; {% now "Y" %} {{ business_name }}. All rights reserved.</p>
+    <p class="footer__made">Made with love and a lot of care.</p>
+    <a href="/admin-login/" class="footer__admin-link" tabindex="-1" aria-hidden="true">&#x2665;</a>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════
+       SCRIPTS
+  ════════════════════════════════════════════════ -->
+  <!-- AOS init -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <!-- Our custom JS -->
+  <script src="{% static 'landing/js/main.js' %}"></script>
+
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

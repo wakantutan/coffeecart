@@ -1,0 +1,82 @@
+{% extends "landing/admin/base_admin.html" %}
+{% block title %}Notifications{% endblock %}
+{% block page_title %}Notifications{% endblock %}
+{% block content %}
+
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.75rem">
+  <div style="font-size:.85rem;color:var(--text-light)">
+    {% if unread_count %}
+      <span style="font-weight:600;color:var(--accent)">{{ unread_count }} unread</span> notification{{ unread_count|pluralize }}
+    {% else %}
+      All caught up! No unread notifications.
+    {% endif %}
+  </div>
+  {% if unread_count %}
+  <form method="POST" style="margin:0">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="mark_all_read">
+    <button type="submit" class="btn btn--outline btn--sm">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      Mark all as read
+    </button>
+  </form>
+  {% endif %}
+</div>
+
+<div class="card">
+  <div class="card__body" style="padding:0">
+    {% if notifications %}
+      {% for n in notifications %}
+      <div style="display:flex;align-items:flex-start;gap:1rem;padding:1rem 1.25rem;border-bottom:1px solid var(--border);background:{% if not n.is_read %}rgba(41,168,224,.04){% else %}transparent{% endif %};transition:background .2s">
+
+        <!-- Icon -->
+        <div style="width:38px;height:38px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+          background:{% if n.type == 'new_booking' %}rgba(41,168,224,.12){% elif n.type == 'new_review' %}rgba(245,158,11,.12){% else %}rgba(34,197,94,.12){% endif %}">
+          {% if n.type == 'new_booking' %}
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          {% elif n.type == 'new_review' %}
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          {% else %}
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          {% endif %}
+        </div>
+
+        <!-- Content -->
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.2rem;flex-wrap:wrap">
+            <span style="font-size:.88rem;font-weight:{% if not n.is_read %}600{% else %}500{% endif %};color:var(--dark)">{{ n.title }}</span>
+            {% if not n.is_read %}
+              <span style="width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0;display:inline-block"></span>
+            {% endif %}
+          </div>
+          <p style="font-size:.82rem;color:var(--text-light);line-height:1.55;margin-bottom:.3rem">{{ n.message }}</p>
+          <span style="font-size:.72rem;color:var(--text-light)">{{ n.created_at|date:"M d, Y · g:i A" }}</span>
+        </div>
+
+        <!-- Actions -->
+        <div style="display:flex;flex-direction:column;gap:.4rem;flex-shrink:0">
+          {% if n.link %}
+            <a href="{{ n.link }}" class="btn btn--primary btn--sm">View</a>
+          {% endif %}
+          {% if not n.is_read %}
+          <form method="POST" style="margin:0">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="mark_read">
+            <input type="hidden" name="notification_id" value="{{ n.pk }}">
+            <button type="submit" class="btn btn--ghost btn--sm">Dismiss</button>
+          </form>
+          {% endif %}
+        </div>
+
+      </div>
+      {% endfor %}
+    {% else %}
+      <div style="padding:3rem;text-align:center;color:var(--text-light)">
+        <div style="font-size:2.5rem;margin-bottom:.75rem">🔔</div>
+        <div style="font-size:.95rem;font-weight:500;margin-bottom:.4rem">No notifications yet</div>
+        <div style="font-size:.85rem">New bookings and reviews will appear here.</div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
