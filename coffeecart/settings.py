@@ -25,10 +25,13 @@ ALLOWED_HOSTS += ['.up.railway.app', 'localhost', '127.0.0.1']
 
 
 # ── CSRF trusted origins (needed for Railway HTTPS) ────────────
-CSRF_TRUSTED_ORIGINS = []
+CSRF_TRUSTED_ORIGINS = [
+    'https://web-production-1960c.up.railway.app',
+    'https://*.up.railway.app',
+]
 site_url = os.environ.get('SITE_URL', '')
-if site_url:
-    CSRF_TRUSTED_ORIGINS = [site_url]
+if site_url and site_url not in CSRF_TRUSTED_ORIGINS:
+    CSRF_TRUSTED_ORIGINS.append(site_url)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
