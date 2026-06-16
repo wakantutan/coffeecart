@@ -31,31 +31,21 @@ GCASH_QR_PATH    = os.path.join(os.path.dirname(os.path.dirname(__file__)),
 
 
 def _send(subject, body, to, attachments=None):
-    """Helper — send email in a background thread to avoid worker timeout."""
-    import threading
+    """Helper — send email via Resend API (works on Railway free plan)."""
+    try:
+        resend.api_key = os.environ.get('RESEND_API_KEY', '')
+        if not resend.api_key:
+            return
 
-    def _do_send():
-        try:
-            email = EmailMessage(
-                subject    = subject,
-                body       = body,
-                from_email = f"{BUSINESS_NAME} <{settings.DEFAULT_FROM_EMAIL}>",
-                to         = [to],
-            )
-            if attachments:
-                for filename, filepath, mimetype in attachments:
-                    try:
-                        with open(filepath, 'rb') as f:
-                            email.attach(filename, f.read(), mimetype)
-                    except Exception:
-                        pass
-            email.send(fail_silently=True)
-        except Exception:
-            pass
-
-    thread = threading.Thread(target=_do_send, daemon=True)
-    thread.start()
-
+        params = {
+            "from": f"{BUSINESS_NAME} <onboarding@resend.dev>",
+            "to": [to],
+            "subject": subject,
+            "text": body,
+        }
+        resend.Emails.send(params)
+    except Exception:
+        pass
 
 def _deposit_amount(price_str):
     """Extract numeric price and compute deposit."""
