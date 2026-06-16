@@ -9,9 +9,9 @@ Complete payment flow:
   6. Custom message       → direct message from admin
 """
 
-from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
 import os
+import requests
 
 def _site_url():
     return getattr(settings, 'SITE_URL', 'http://127.0.0.1:8000')
@@ -31,22 +31,26 @@ GCASH_QR_PATH    = os.path.join(os.path.dirname(os.path.dirname(__file__)),
 
 
 def _send(subject, body, to, attachments=None):
-    """Helper — send plain text email with optional attachments, silently fail."""
+    """Send email via Brevo HTTP API (bypasses SMTP port blocking)."""
     try:
-        email = EmailMessage(
-            subject    = subject,
-            body       = body,
-            from_email = f"{BUSINESS_NAME} <hellofroyodiaries@gmail.com>",
-            to         = [to],
+        api_key = os.environ.get('BREVO_API_KEY', '')
+        if not api_key:
+            return
+
+        response = requests.post(
+            'https://api.brevo.com/v3/smtp/email',
+            headers={
+                'api-key': api_key,
+                'Content-Type': 'application/json',
+            },
+            json={
+                'sender': {'name': BUSINESS_NAME, 'email': 'hellofroyodiaries@gmail.com'},
+                'to': [{'email': to}],
+                'subject': subject,
+                'textContent': body,
+            },
+            timeout=10,
         )
-        if attachments:
-            for filename, filepath, mimetype in attachments:
-                try:
-                    with open(filepath, 'rb') as f:
-                        email.attach(filename, f.read(), mimetype)
-                except Exception:
-                    pass
-        email.send(fail_silently=True)
     except Exception:
         pass
 
