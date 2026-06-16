@@ -1,1 +1,1 @@
-web: gunicorn coffeecart.wsgi --log-file -
+web: python manage.py migrate && python manage.py collectstatic --noinput && gunicorn coffeecart.wsgi --log-file - --timeout 120 --workers 2
