@@ -9,9 +9,9 @@ Complete payment flow:
   6. Custom message       → direct message from admin
 """
 
-from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
 import os
+import resend
 
 def _site_url():
     return getattr(settings, 'SITE_URL', 'http://127.0.0.1:8000')
