@@ -9,9 +9,9 @@ Complete payment flow:
   6. Custom message       → direct message from admin
 """
 
+from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
 import os
-import resend
 
 def _site_url():
     return getattr(settings, 'SITE_URL', 'http://127.0.0.1:8000')
@@ -31,19 +31,22 @@ GCASH_QR_PATH    = os.path.join(os.path.dirname(os.path.dirname(__file__)),
 
 
 def _send(subject, body, to, attachments=None):
-    """Helper — send email via Resend API (works on Railway free plan)."""
+    """Helper — send plain text email with optional attachments, silently fail."""
     try:
-        resend.api_key = os.environ.get('RESEND_API_KEY', '')
-        if not resend.api_key:
-            return
-
-        params = {
-            "from": f"{BUSINESS_NAME} <onboarding@resend.dev>",
-            "to": [to],
-            "subject": subject,
-            "text": body,
-        }
-        resend.Emails.send(params)
+        email = EmailMessage(
+            subject    = subject,
+            body       = body,
+            from_email = f"{BUSINESS_NAME} <hellofroyodiaries@gmail.com>",
+            to         = [to],
+        )
+        if attachments:
+            for filename, filepath, mimetype in attachments:
+                try:
+                    with open(filepath, 'rb') as f:
+                        email.attach(filename, f.read(), mimetype)
+                except Exception:
+                    pass
+        email.send(fail_silently=True)
     except Exception:
         pass
 

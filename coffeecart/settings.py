@@ -113,13 +113,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # ── Email configuration (Gmail SMTP) ──────────────────────────
 # Set EMAIL_HOST_USER and EMAIL_HOST_PASSWORD in Railway environment variables
 EMAIL_BACKEND       = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST          = 'smtp.gmail.com'
-EMAIL_PORT          = 465
-EMAIL_USE_TLS       = False
-EMAIL_USE_SSL       = True
-EMAIL_HOST_USER     = os.environ.get('EMAIL_HOST_USER', '')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
-DEFAULT_FROM_EMAIL  = os.environ.get('EMAIL_HOST_USER', '')
+EMAIL_HOST          = 'smtp-relay.brevo.com'
+EMAIL_PORT          = 587
+EMAIL_USE_TLS       = True
+EMAIL_USE_SSL       = False
+EMAIL_HOST_USER     = 'hellofroyodiaries@gmail.com'
+EMAIL_HOST_PASSWORD = os.environ.get('BREVO_SMTP_PASSWORD', '')
+DEFAULT_FROM_EMAIL  = 'hellofroyodiaries@gmail.com'
 
 # ── Site URL ───────────────────────────────────────────────────
 # Set SITE_URL to your Railway domain, e.g. https://yourapp.railway.app
