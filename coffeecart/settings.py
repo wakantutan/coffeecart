@@ -19,6 +19,10 @@ if not SECRET_KEY:
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
+# Always allow Railway internal domains
+ALLOWED_HOSTS += ['.up.railway.app', 'localhost', '127.0.0.1']
+
+
 
 # ── CSRF trusted origins (needed for Railway HTTPS) ────────────
 CSRF_TRUSTED_ORIGINS = []
